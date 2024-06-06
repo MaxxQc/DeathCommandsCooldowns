@@ -1,0 +1,6 @@
+name: DeathCommandsCooldowns
+version: '${project.version}'
+main: qc.maxx.deathcommandscooldowns.DeathCommandsCooldowns
+api-version: '1.20'
+description: A plugin to add cooldown on commands after death.
+authors: [Maxx_Qc]
