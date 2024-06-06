@@ -6,7 +6,8 @@ Original request: www.spigotmc.org/threads/essentials-back-plugin.649840/
 
 ## Configuration
 
-```events:
+```
+events:
   # should the cooldown be activated on death?
   on-death: true
   # should the cooldown be activated on pvp death?
@@ -35,4 +36,5 @@ blacklist-commands:
   - essentials:back
   - essentials:eback
   - essentials:return
-  - essentials:ereturn```
+  - essentials:ereturn
+```
