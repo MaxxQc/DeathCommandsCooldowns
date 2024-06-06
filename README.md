@@ -1,6 +1,7 @@
 # DeathCommandsCooldowns
 
 A Spigot plugin to add a cooldown on commands after death.
+
 Original request: www.spigotmc.org/threads/essentials-back-plugin.649840/
 
 ## Configuration
