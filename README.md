@@ -6,7 +6,7 @@ Original request: www.spigotmc.org/threads/essentials-back-plugin.649840/
 
 ## Configuration
 
-```
+```yaml
 events:
   # should the cooldown be activated on death?
   on-death: true
