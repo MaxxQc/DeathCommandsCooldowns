@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,17 +21,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class DeathCommandsCooldowns extends JavaPlugin implements Listener {
     private final Map<UUID, Long> COOLDOWNS_MAP = new HashMap<>();
     private final Set<UUID> CD_TO_ADD_SET = new HashSet<>();
-    private final Set<String> BLACKLIST_COMMANDS_SET = new HashSet<>();
     private final Map<String, Integer> CD_PERMISSIONS_MAP = new HashMap<>();
-
-    private int defaultCooldown;
+    private final Set<String> BLACKLIST_COMMANDS_SET = new HashSet<>();
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
 
-        this.BLACKLIST_COMMANDS_SET.addAll(getConfig().getStringList("blacklist-commands"));
-        this.defaultCooldown = getConfig().getInt("cooldowns.default", 0);
+        this.BLACKLIST_COMMANDS_SET.addAll(getConfig().getStringList("blacklist-commands").stream().map(String::toLowerCase).collect(Collectors.toSet()));
 
         for (String key : getConfig().getConfigurationSection("cooldowns").getKeys(true)) {
             if (!key.equals("default")) {
@@ -57,7 +56,7 @@ public final class DeathCommandsCooldowns extends JavaPlugin implements Listener
 
     @EventHandler
     private void onCommand(PlayerCommandPreprocessEvent event) {
-        if (!this.BLACKLIST_COMMANDS_SET.contains(event.getMessage().substring(1).split(" ")[0].toLowerCase()))
+        if (!this.BLACKLIST_COMMANDS_SET.contains(event.getMessage().toLowerCase().substring(1)))
             return;
 
         Player player = event.getPlayer();
@@ -87,7 +86,7 @@ public final class DeathCommandsCooldowns extends JavaPlugin implements Listener
     }
 
     private void addCooldown(Player player) {
-        int cooldown = this.defaultCooldown;
+        int cooldown = this.getConfig().getInt("cooldowns.default", 0);
 
         for (Map.Entry<String, Integer> entry : this.CD_PERMISSIONS_MAP.entrySet()) {
             if (player.hasPermission(entry.getKey())) {
