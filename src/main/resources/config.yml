@@ -28,3 +28,6 @@ blacklist-commands:
   - essentials:eback
   - essentials:return
   - essentials:ereturn
+  - world_nether%home
+  - world_nether%essentials:home
+  - world_nether%essentials:ehome
